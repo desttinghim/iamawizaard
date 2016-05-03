@@ -18,19 +18,21 @@ import openfl.Assets;
 
 class PlayState extends FlxState
 {
-	public var level:FlxTilemap;
 	var player:Player;
+	var exit:FlxSprite;
+	public var level:FlxTilemap;
 
 	override public function create():Void
 	{
-		super.create();	
 		FlxG.camera.bgColor = 0xFF6DC2CA;
 		Reg.state = this;
 
 		addLevel();
 		addPlayer(2, 22);
+		addExit(119, 19);
 		setCamera();
-			
+		
+		super.create();	
 	}
 
 	function addLevel():Void 
@@ -50,6 +52,19 @@ class PlayState extends FlxState
 		add(player);
 	}
 
+	function addExit(X:Int, Y:Int):Void
+	{
+		exit = new FlxSprite(X * 16, Y * 16 - 16);
+
+		#if debug
+		exit.makeGraphic(16, 32, 0x80FF0000);
+		#else
+		exit.makeGraphic(16, 32, 0x00000000);
+		#end
+
+		add(exit);
+	}
+
 	function setCamera():Void 
 	{
 		FlxG.camera.follow( player, FlxCameraFollowStyle.PLATFORMER );
@@ -60,7 +75,25 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		FlxG.collide( level, player );
+		FlxG.overlap( exit, player, winGame);
 
+	}
+
+	function winGame(e:FlxSprite, p:Player):Void
+	{
+		if(p.isTouching(FlxObject.FLOOR) && !p.hasWon)
+		{
+			p.velocity.x = 0;
+			p.acceleration.x = 0;
+			p.animation.play("check");
+			p.hasWon = true;
+			new FlxTimer().start(1, leaveStage);
+		}
+	}
+
+	public function leaveStage(?t:FlxTimer):Void
+	{
+		openSubState(new WinState());
 	}
 
 	public function gameOver(?t:FlxTimer):Void{

@@ -40,11 +40,13 @@ class Player extends FlxSprite
 		acceleration.y = _gravity;
 		drag.x = _drag;
 	}	
+	
+	public var hasWon:Bool = false;
 
 	override public function update(elapsedTime:Float):Void
 	{
-		if (alive) controls();
-		animate();
+		if (alive && !hasWon) controls();
+		if(!hasWon) animate();
 		levelConstraints();
 		super.update(elapsedTime);
 	}

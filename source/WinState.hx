@@ -4,8 +4,7 @@ import flixel.FlxG;
 import flixel.FlxSubState;
 import flixel.text.FlxText;
 
-class GameOver extends FlxSubState
-{
+class WinState extends FlxSubState {
 	public function new()
 	{
 		super(0xff000000);
