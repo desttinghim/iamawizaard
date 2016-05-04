@@ -94,7 +94,9 @@ class Player extends FlxSprite
 		else {
 			if(velocity.x == 0) animation.play("idle");
 			else if(velocity.x > 0 && acceleration.x < 0 || velocity.x < 0 && acceleration.x > 0) animation.play("skid");
-			else if(Math.abs(velocity.x) > _maxWalkSpeed) animation.play("run");
+			else if(Math.abs(velocity.x) > _maxWalkSpeed) {
+				animation.play("run");
+			}
 			else animation.play("walk");
 
 		}

@@ -14,6 +14,9 @@ import flixel.FlxCamera;
 import flixel.group.FlxGroup;
 import flixel.util.FlxTimer;
 import flixel.FlxSubState;
+import flixel.effects.particles.FlxEmitter;
+import flixel.effects.particles.FlxParticle;
+import flixel.util.FlxColor;
 import openfl.Assets;
 
 class PlayState extends FlxState
@@ -26,6 +29,8 @@ class PlayState extends FlxState
 	{
 		FlxG.camera.bgColor = 0xFF6DC2CA;
 		Reg.state = this;
+
+		add(new Fire(2*16,21*16));
 
 		addLevel();
 		addPlayer(2, 22);
