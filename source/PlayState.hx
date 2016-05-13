@@ -83,6 +83,11 @@ class PlayState extends FlxState
 
 	}
 
+	public function fireFireball()
+	{
+		add(new Fireball(player.x, player.y, FlxG.mouse.x, FlxG.mouse.y));
+	}
+
 	function winGame(e:FlxSprite, p:Player):Void
 	{
 		if(p.isTouching(FlxObject.FLOOR) && !p.hasWon)

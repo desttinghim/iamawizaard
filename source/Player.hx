@@ -39,8 +39,8 @@ class Player extends FlxSprite
 		maxVelocity.y = _maxFallSpeed;
 		acceleration.y = _gravity;
 		drag.x = _drag;
-	}	
-	
+	}
+
 	public var hasWon:Bool = false;
 
 	override public function update(elapsedTime:Float):Void
@@ -58,6 +58,7 @@ class Player extends FlxSprite
 		var xForce:Float = 0;
 		var running:Bool = false;
 		var jumping:Bool = false;
+		var fireball:Bool = false;
 
 		if(joyPad == null) joyPad = FlxG.gamepads.lastActive;
 		else {
@@ -73,6 +74,10 @@ class Player extends FlxSprite
 		if(FlxG.keys.anyJustPressed(["SPACE", "UP", "W", "C"])) jumping = true;
 		if(FlxG.keys.anyJustReleased(["SPACE", "UP", "W", "C"])) velocity.y *= 0.5;
 		if(FlxG.keys.anyJustReleased(["SHIFT", "X"])) running = true;
+
+		// fireball code
+		if(FlxG.mouse.justReleased) Reg.state.fireFireball();
+		// end fireball code
 
 		xForce = FlxMath.bound(xForce, -1, 1);
 		maxVelocity.x = running ? _maxRunSpeed : _maxWalkSpeed;
