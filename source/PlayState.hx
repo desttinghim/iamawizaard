@@ -30,17 +30,16 @@ class PlayState extends FlxState
 		FlxG.camera.bgColor = 0xFF6DC2CA;
 		Reg.state = this;
 
-		add(new Fire(2*16,21*16));
-
 		addLevel();
 		addPlayer(2, 22);
-		addExit(119, 19);
+		add(new Fire(4*16,18*16));
+		addExit(118, 19);
 		setCamera();
-		
-		super.create();	
+
+		super.create();
 	}
 
-	function addLevel():Void 
+	function addLevel():Void
 	{
 		level = new FlxTilemap();
 		level.loadMapFromCSV(Assets.getText("assets/data/Map1_Level.csv"), "assets/images/tiles.png", 16, 16);
@@ -70,7 +69,7 @@ class PlayState extends FlxState
 		add(exit);
 	}
 
-	function setCamera():Void 
+	function setCamera():Void
 	{
 		FlxG.camera.follow( player, FlxCameraFollowStyle.PLATFORMER );
 		FlxG.camera.setScrollBoundsRect( 0, 0, level.width, level.height);
